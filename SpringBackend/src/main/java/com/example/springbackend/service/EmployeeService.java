@@ -2,9 +2,11 @@ package com.example.springbackend.service;
 
 import com.example.springbackend.model.Employee;
 import com.example.springbackend.repository.EmployeeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -16,8 +18,8 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public List<Employee> getEmployees() {
-        return employeeRepository.findAll();
+    public Page<Employee> getEmployees(int page, int pageSize, String sortBy, Sort.Direction direction) {
+        return employeeRepository.findAll(PageRequest.of(page, pageSize, Sort.by(direction, sortBy)));
     }
 
     public Employee getEmployeeById(Long id) {
@@ -29,7 +31,7 @@ public class EmployeeService {
                 () -> new NoSuchElementException("There is no employee with id: " + id));
     }
 
-    public Employee addEmployee(Employee employee){
+    public Employee addEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
 
@@ -50,7 +52,7 @@ public class EmployeeService {
         return employeeRepository.save(toUpdate);
     }
 
-    public void deleteEmployeeById(Long id){
+    public void deleteEmployeeById(Long id) {
         employeeRepository.deleteById(id);
     }
 
