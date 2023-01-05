@@ -2,3 +2,17 @@
 .page{
   margin-top: 30px;
 }
+
+.container{
+  background-color: #6c6c6c;
+  padding: 10px;
+}
+
+.btn-new{
+  float: right;
+  margin-bottom: 10px;
+}
+
+.btn-delete{
+  margin-left: 10px;
+}

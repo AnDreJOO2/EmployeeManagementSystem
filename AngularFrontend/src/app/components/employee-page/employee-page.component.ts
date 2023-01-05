@@ -9,7 +9,8 @@ import {EmployeePage} from "../../interfaces/employee-page";
 })
 export class EmployeePageComponent implements OnInit{
 
-  employeePage: EmployeePage | undefined
+  // @ts-ignore
+  employeePage: EmployeePage
 
   constructor(private employeeService: EmployeeService) {
   }
