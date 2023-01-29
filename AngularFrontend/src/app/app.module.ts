@@ -8,6 +8,10 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { DeleteEmployeeComponent } from './components/delete-employee/delete-employee.component';
+import { MatFormFieldModule} from "@angular/material/form-field";
+import { MatInputModule} from "@angular/material/input";
+import { FormsModule } from "@angular/forms";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { DeleteEmployeeComponent } from './components/delete-employee/delete-emp
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

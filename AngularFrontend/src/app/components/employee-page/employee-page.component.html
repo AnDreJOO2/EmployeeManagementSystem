@@ -1,7 +1,7 @@
 
 <div class="page">
   <div class="container">
-    <button type="button" class="btn btn-primary btn-new">New Employee</button>
+    <button type="button" class="btn btn-primary btn-new" (click)="openNewEmployeeDialog()">New Employee</button>
     <table class="table table-striped table-dark">
       <thead>
       <tr>
@@ -21,8 +21,8 @@
         <td>{{employee.email}}</td>
         <td>{{employee.salary}}</td>
         <td>
-          <button type="button" class="btn btn-success btn-edit">Edit</button>
-          <button type="button" class="btn btn-danger btn-delete">Delete</button>
+          <button type="button" class="btn btn-success btn-edit" (click)="openEditEmployeeDialog(employee)">Edit</button>
+          <button type="button" class="btn btn-danger btn-delete" (click)="openDeleteEmployeeDialog(employee)">Delete</button>
         </td>
       </tr>
       </tbody>
