@@ -21,14 +21,14 @@ public class EmployeeController {
 
     @GetMapping()
     public ResponseEntity<Page<Employee>>
-    getEmployees(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+    getEmployees(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
                  @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
                  @RequestParam(value = "sortBy", required = false, defaultValue = "id") String sortBy,
                  @RequestParam(value = "direction", required = false, defaultValue = "ASC") Sort.Direction direction) {
 
-        page = page < 1 ? 1 : page;
+        page = page < 0 ? 0 : page;
         pageSize = pageSize < 1 ? 1 : pageSize;
-        return new ResponseEntity<>(employeeService.getEmployees(page - 1, pageSize, sortBy, direction), HttpStatus.OK);
+        return new ResponseEntity<>(employeeService.getEmployees(page, pageSize, sortBy, direction), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
