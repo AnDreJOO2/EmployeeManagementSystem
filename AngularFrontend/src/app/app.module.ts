@@ -12,6 +12,8 @@ import { MatFormFieldModule} from "@angular/material/form-field";
 import { MatInputModule} from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
+import { NgxPaginationModule } from "ngx-pagination";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { MatDialogModule } from "@angular/material/dialog";
     MatInputModule,
     FormsModule,
     MatDialogModule,
+    NgxPaginationModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
