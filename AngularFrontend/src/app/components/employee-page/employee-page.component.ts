@@ -17,26 +17,40 @@ export class EmployeePageComponent implements OnInit {
   // @ts-ignore
   employeePage: EmployeePage
 
+  collectionSize = 0;
+  page = 0;
+  pageSize = 15;
+
+
   constructor(private matDialog: MatDialog, private employeeService: EmployeeService) {
   }
 
   ngOnInit(): void {
-    this.employeeService.getEmployeePage().subscribe(response => {
-      this.employeePage = response;
-      console.log(this.employeePage);
-    });
+    return this.goToPage(0)
   }
 
-  openNewEmployeeDialog(){
+  openNewEmployeeDialog() {
     this.matDialog.open(AddEmployeeComponent);
   }
 
-  openEditEmployeeDialog(employee: Employee){
-    this.matDialog.open(EditEmployeeComponent, {data:employee});
+  openEditEmployeeDialog(employee: Employee) {
+    this.matDialog.open(EditEmployeeComponent, {data: employee});
   }
 
-  openDeleteEmployeeDialog(employee: Employee){
+  openDeleteEmployeeDialog(employee: Employee) {
     console.log(employee.id)
     this.matDialog.open(DeleteEmployeeComponent);
+  }
+
+  goToPage(page: number) {
+    this.employeeService.getEmployeePage(page, this.pageSize).subscribe(response => {
+      this.employeePage = response;
+      this.collectionSize = response.totalElements;
+    });
+  }
+
+  changePageSize(number: number) {
+    this.pageSize = number;
+    this.page = 0;
   }
 }
