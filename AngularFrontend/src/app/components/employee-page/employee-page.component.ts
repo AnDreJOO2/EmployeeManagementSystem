@@ -30,16 +30,36 @@ export class EmployeePageComponent implements OnInit {
   }
 
   openNewEmployeeDialog() {
-    this.matDialog.open(AddEmployeeComponent);
+    let dialogRef = this.matDialog.open(AddEmployeeComponent);
+    dialogRef.afterClosed().subscribe({
+      next: (value) => {
+        if (value) {
+          this.goToPage(this.page - 1);
+        }
+      }
+    })
   }
 
   openEditEmployeeDialog(employee: Employee) {
-    this.matDialog.open(EditEmployeeComponent, {data: employee});
+    let dialogRef = this.matDialog.open(EditEmployeeComponent, {data: employee});
+    dialogRef.afterClosed().subscribe({
+      next: (value) => {
+        if (value) {
+          this.goToPage(this.page - 1);
+        }
+      }
+    })
   }
 
   openDeleteEmployeeDialog(employee: Employee) {
-    console.log(employee.id)
-    this.matDialog.open(DeleteEmployeeComponent);
+    let dialogRef = this.matDialog.open(DeleteEmployeeComponent, {data: employee});
+    dialogRef.afterClosed().subscribe({
+      next: (value) => {
+        if (value) {
+          this.goToPage(this.page - 1);
+        }
+      }
+    })
   }
 
   goToPage(page: number) {
