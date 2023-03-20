@@ -1,1 +1,16 @@
-<p>delete-employee works!</p>
+<div class="delete-employee-content">
+  <div mat-dialog-title>
+    <h2>Confirm deleting employee: {{toDelete.firstName}} {{toDelete.lastName}}</h2>
+  </div>
+  <form class="delete-employee-form" #form = "ngForm" (ngSubmit)="deleteEmployee(form)">
+    <div mat-dialog-actions>
+      <button mat-raised-button type="submit" color="primary">
+        Confirm
+      </button>
+      <button mat-raised-button [matDialogClose]="false" color="warn">
+        Cancel
+      </button>
+    </div>
+  </form>
+
+</div>

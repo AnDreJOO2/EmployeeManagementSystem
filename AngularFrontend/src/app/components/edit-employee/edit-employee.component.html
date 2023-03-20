@@ -1,17 +1,42 @@
-<!--<form>-->
-<!--  <h1>Edit employee: {{employee.firstName}} {{employee.lastName}}</h1>-->
-<!--  <div class="mb-3">-->
-<!--    <label for="exampleInputEmail1" class="form-label">Email address</label>-->
-<!--    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">-->
-<!--    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
-<!--  </div>-->
-<!--  <div class="mb-3">-->
-<!--    <label for="exampleInputPassword1" class="form-label">Password</label>-->
-<!--    <input type="password" class="form-control" id="exampleInputPassword1">-->
-<!--  </div>-->
-<!--  <div class="mb-3 form-check">-->
-<!--    <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
-<!--    <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
-<!--  </div>-->
-<!--  <button type="submit" class="btn btn-primary">Submit</button>-->
-<!--</form>-->
+<div class="add-new-employee-content">
+  <div mat-dialog-title>
+    <h2>Editing employee: {{toEdit.firstName}} {{toEdit.lastName}}</h2>
+  </div>
+  <form class="edit-employee-form" #form = "ngForm" (ngSubmit)="editEmployee(toEdit.id,form)">
+    <div mat-dialog-content>
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input  matInput type="text" required ngModel="{{toEdit.firstName}}" name="firstname">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput type="text" required ngModel="{{toEdit.lastName}}" name="lastname">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" email required ngModel="{{toEdit.email}}" name="email">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Salary</mat-label>
+          <input matInput type="number" required ngModel="{{toEdit.salary}}" name="salary">
+        </mat-form-field>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-raised-button type="submit" color="primary">
+        Save
+      </button>
+      <button mat-raised-button [matDialogClose]="false" color="warn">
+        Cancel
+      </button>
+    </div>
+  </form>
+
+</div>
