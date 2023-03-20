@@ -14,6 +14,9 @@ import { FormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
 import { NgxPaginationModule } from "ngx-pagination";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatButtonModule} from "@angular/material/button";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -24,16 +27,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EditEmployeeComponent,
     DeleteEmployeeComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatDialogModule,
-    NgxPaginationModule,
-    NgbModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatDialogModule,
+        NgxPaginationModule,
+        NgbModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
