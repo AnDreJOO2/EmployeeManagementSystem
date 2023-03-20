@@ -1,1 +1,42 @@
-<p>add-employee works!</p>
+<div class="add-new-employee-content">
+  <div mat-dialog-title>
+    <h2>Add Employee</h2>
+  </div>
+  <form class="add-new-employee-form" #form="ngForm" (ngSubmit)="addEmployee(form)">
+    <div mat-dialog-content>
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput type="text" required ngModel name="firstname">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput type="text" required ngModel name="lastname">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" email required ngModel name="email">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Salary</mat-label>
+          <input matInput type="number" required ngModel name="salary">
+        </mat-form-field>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-raised-button type="submit" color="primary">
+        Save
+      </button>
+      <button mat-raised-button [matDialogClose]="false" color="warn">
+        Cancel
+      </button>
+    </div>
+  </form>
+
+</div>
