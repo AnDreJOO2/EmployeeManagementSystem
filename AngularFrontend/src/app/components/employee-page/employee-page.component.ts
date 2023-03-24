@@ -73,4 +73,15 @@ export class EmployeePageComponent implements OnInit {
     this.pageSize = number;
     this.page = 0;
   }
+
+  export(type:string) {
+    this.employeeService.exportEmployee(type).subscribe(response =>{
+      const a = document.createElement('a')
+      const objectUrl = URL.createObjectURL(response)
+      a.href = objectUrl
+      a.download = 'employees.'+type;
+      a.click();
+      URL.revokeObjectURL(objectUrl);
+    });
+  }
 }

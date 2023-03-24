@@ -33,4 +33,10 @@ export class EmployeeService {
   deleteEmployee(id: number): Observable<any> {
     return this.httpClient.delete(this.employeeUrl + '/' + id);
   }
+
+  exportEmployee(type: string): Observable<Blob>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("type", type);
+    return this.httpClient.get(this.employeeUrl + '/' + 'export', {params:queryParams, responseType: 'blob'});
+  }
 }
