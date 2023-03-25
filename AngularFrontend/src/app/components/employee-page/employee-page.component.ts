@@ -6,6 +6,7 @@ import {AddEmployeeComponent} from "../add-employee/add-employee.component";
 import {EditEmployeeComponent} from "../edit-employee/edit-employee.component";
 import {DeleteEmployeeComponent} from "../delete-employee/delete-employee.component";
 import {Employee} from "../../interfaces/employee";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-employee-page',
@@ -20,9 +21,13 @@ export class EmployeePageComponent implements OnInit {
   collectionSize = 0;
   page = 0;
   pageSize = 15;
+  selectedFiles?: FileList;
+  currentFile?: File;
 
 
-  constructor(private matDialog: MatDialog, private employeeService: EmployeeService) {
+  fileName = 'Select File';
+
+  constructor(private matDialog: MatDialog, private employeeService: EmployeeService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -74,14 +79,55 @@ export class EmployeePageComponent implements OnInit {
     this.page = 0;
   }
 
-  export(type:string) {
-    this.employeeService.exportEmployee(type).subscribe(response =>{
-      const a = document.createElement('a')
-      const objectUrl = URL.createObjectURL(response)
-      a.href = objectUrl
-      a.download = 'employees.'+type;
-      a.click();
-      URL.revokeObjectURL(objectUrl);
-    });
+  export(type: string) {
+    this.employeeService.exportEmployees(type).subscribe(
+      response => {
+
+        const a = document.createElement('a')
+        const objectUrl = URL.createObjectURL(response)
+        a.href = objectUrl
+        a.download = 'employees.' + type;
+        a.click();
+        URL.revokeObjectURL(objectUrl);
+        this.toastr.success('File exported successfully', 'Success', {
+          timeOut: 2000,
+        });
+      },
+      error => {
+        this.toastr.error('Error: ' + error.message, 'Error', {
+          timeOut: 2000,
+        });
+      });
+  }
+
+  import() {
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+
+      if (file) {
+        this.currentFile = file;
+
+        this.employeeService.importEmployees(this.currentFile).subscribe({
+          next: (event: any) => {
+            this.toastr.success('File imported successfully', 'Success', {
+              timeOut: 2000,
+            });
+          },
+          error: (err: any) => {
+            this.toastr.success(err.body.message(), 'Error', {
+              timeOut: 2000,
+            });
+
+            this.currentFile = undefined;
+          }
+        });
+      }
+      this.selectedFiles = undefined;
+    }
+  }
+
+  selectFile(event: any) {
+    this.selectedFiles = event.target.files;
+    this.import();
   }
 }

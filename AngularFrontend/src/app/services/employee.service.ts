@@ -34,9 +34,15 @@ export class EmployeeService {
     return this.httpClient.delete(this.employeeUrl + '/' + id);
   }
 
-  exportEmployee(type: string): Observable<Blob>{
+  exportEmployees(type: string): Observable<Blob> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("type", type);
-    return this.httpClient.get(this.employeeUrl + '/' + 'export', {params:queryParams, responseType: 'blob'});
+    return this.httpClient.get(this.employeeUrl + '/export', {params: queryParams, responseType: 'blob'});
+  }
+
+  importEmployees(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.httpClient.post(this.employeeUrl + '/import', formData, {reportProgress: true});
   }
 }
