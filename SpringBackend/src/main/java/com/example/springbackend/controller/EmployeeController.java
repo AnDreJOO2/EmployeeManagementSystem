@@ -4,7 +4,9 @@ import com.example.springbackend.model.Employee;
 import com.example.springbackend.service.EmployeeService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,18 @@ public class EmployeeController {
         page = page < 0 ? 0 : page;
         pageSize = pageSize < 1 ? 1 : pageSize;
         return new ResponseEntity<>(employeeService.getEmployees(page, pageSize, sortBy, direction), HttpStatus.OK);
+    }
+
+    @GetMapping("export")
+    public ResponseEntity<byte[]> exportEmployees(@RequestParam(required = false, defaultValue = "csv") String type) {
+        type = type.toLowerCase();
+        String fileName = "employees." + type;
+
+        byte[] file = employeeService.exportEmployees(type);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
+                .contentType(MediaType.parseMediaType("application/" + type))
+                .body(file);
     }
 
     @GetMapping("/{id}")
