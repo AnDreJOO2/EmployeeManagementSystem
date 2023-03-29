@@ -76,9 +76,9 @@ public class EmployeeCriteriaRepository {
         if (Objects.nonNull(employeeSearchCriteria.getFirstNameLike())) {
             predicates.add(
                     criteriaBuilder.or(
-                            criteriaBuilder.like(root.get("firstName"), "%" + employeeSearchCriteria.getFirstNameLike() + "%"),
-                            criteriaBuilder.like(root.get("lastName"), "%" + employeeSearchCriteria.getLastNameLike() + "%"),
-                            criteriaBuilder.like(root.get("email"), "%" + employeeSearchCriteria.getEmailLike() + "%")
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("firstName")), "%" + employeeSearchCriteria.getFirstNameLike().toLowerCase() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("lastName")), "%" + employeeSearchCriteria.getLastNameLike().toLowerCase() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("email")), "%" + employeeSearchCriteria.getEmailLike().toLowerCase() + "%")
                     ));
         }
 
