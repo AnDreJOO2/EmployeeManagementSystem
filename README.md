@@ -7,11 +7,11 @@ Single page Frontend-Backend application to manage your entity, based on employe
 
 # Table of Contents
 1. [About](#About)
-2. [Functionalities](#Functionalities)
-3. [Technologies](#Technologies)
-4. [How to run](#How-to-run)
-5. [Usage Example](#Usage-Example)
-5. [Summary](#Summary)
+2. [Functionalities](#functionalities)
+3. [Technologies](#technologies)
+4. [How to run](#how-to-run)
+5. [Usage Example](#usage-Example)
+5. [Summary](#summary)
 
 # Functionalities <a name="Functionalities"></a>
 
