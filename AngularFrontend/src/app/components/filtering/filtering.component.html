@@ -1,0 +1,70 @@
+<div class="filtering">
+  <h3>
+    Searcher
+  </h3>
+  <form class="filtering-form" #form="ngForm" (ngSubmit)="submit(form)">
+    <div mat-dialog-content>
+      <div class="row">
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" [(ngModel)]="selectedSearch" ngModel name="firstNameLastNameEmail">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <h3>
+            Salary range
+          </h3>
+        </div>
+        <div class="min">
+          <mat-form-field appearance="outline">
+            <mat-label>Min</mat-label>
+            <input matInput type="number" [(ngModel)]="selectedMin" ngModel name="salaryGreaterEqual">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="max">
+          <mat-form-field appearance="outline">
+            <mat-label>Max</mat-label>
+            <input matInput type="number" [(ngModel)]="selectedMax" ngModel name="salaryLessEqual">
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <h3>Sorting & Ordering</h3>
+      </div>
+      <div class="row">
+        <div class="sorting">
+          <mat-form-field appearance="outline">
+            <mat-select ngModel name="sortBy" [(ngModel)]="selectedSortingBy">
+              <mat-option *ngFor="let sorting of sortingOptions" [value]="sorting.value">{{ sorting.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="ordering">
+          <mat-form-field appearance="outline">
+            <mat-select ngModel name="ordering" [(ngModel)]="selectedOrdering">
+              <mat-option *ngFor="let ordering of orderingOptions"
+                          [value]="ordering.value">{{ ordering.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div mat-dialog-actions>
+        <button mat-raised-button type="submit" color="primary">
+          Apply
+        </button>
+        <button mat-raised-button (click)="setDefault()" color="warn">
+          Reset
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+

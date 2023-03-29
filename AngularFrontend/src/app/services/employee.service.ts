@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {EmployeePage} from "../interfaces/employee-page";
 import {NewEmployee} from "../classes/new-employee";
 import {Observable} from "rxjs";
+import {EmployeeSearchCriteria} from "../classes/employee-search-criteria";
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,35 @@ export class EmployeeService {
 
   private employeeUrl = "http://localhost:8080/api/employees";
 
-  getEmployeePage(page: number, pageSize: number): Observable<any> {
+  getEmployeePage(employeeSearchCriteria: EmployeeSearchCriteria): Observable<any> {
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("page", page);
-    queryParams = queryParams.append("pageSize", pageSize);
+    queryParams = queryParams.append("number", employeeSearchCriteria.number);
+    queryParams = queryParams.append("size", employeeSearchCriteria.size);
+    queryParams = queryParams.append("sortBy", employeeSearchCriteria.sortBy);
+    queryParams = queryParams.append("direction", employeeSearchCriteria.direction);
 
-    return this.httpClient.get<EmployeePage>(this.employeeUrl, {params: queryParams});
+
+    if(employeeSearchCriteria.firstNameLike != null){
+      queryParams = queryParams.append("firstNameLike", employeeSearchCriteria.firstNameLike);
+    }
+
+    if(employeeSearchCriteria.lastNameLike != null){
+      queryParams = queryParams.append("lastNameLike", employeeSearchCriteria.lastNameLike);
+    }
+
+    if(employeeSearchCriteria.emailLike != null){
+      queryParams = queryParams.append("emailLike", employeeSearchCriteria.emailLike);
+    }
+
+    if(employeeSearchCriteria.salaryGreaterEqual != null){
+      queryParams = queryParams.append("salaryGreaterEqual", employeeSearchCriteria.salaryGreaterEqual);
+    }
+
+    if(employeeSearchCriteria.salaryLessEqual != null){
+      queryParams = queryParams.append("salaryLessEqual", employeeSearchCriteria.salaryLessEqual);
+    }
+
+    return this.httpClient.get<EmployeePage>(this.employeeUrl, {params:queryParams});
   }
 
   addEmployee(newEmployee: NewEmployee): Observable<any> {

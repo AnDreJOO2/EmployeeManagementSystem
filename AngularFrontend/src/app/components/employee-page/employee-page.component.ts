@@ -7,6 +7,7 @@ import {EditEmployeeComponent} from "../edit-employee/edit-employee.component";
 import {DeleteEmployeeComponent} from "../delete-employee/delete-employee.component";
 import {Employee} from "../../interfaces/employee";
 import {ToastrService} from "ngx-toastr";
+import {EmployeeSearchCriteria} from "../../classes/employee-search-criteria";
 
 @Component({
   selector: 'app-employee-page',
@@ -18,9 +19,8 @@ export class EmployeePageComponent implements OnInit {
   // @ts-ignore
   employeePage: EmployeePage
 
-  collectionSize = 0;
-  page = 0;
-  pageSize = 15;
+  employeeSearchCriteria: EmployeeSearchCriteria = new EmployeeSearchCriteria();
+
   selectedFiles?: FileList;
   currentFile?: File;
 
@@ -39,7 +39,7 @@ export class EmployeePageComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (value) => {
         if (value) {
-          this.goToPage(this.page - 1);
+          this.goToPage(this.employeeSearchCriteria.number - 1);
         }
       }
     })
@@ -50,7 +50,7 @@ export class EmployeePageComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (value) => {
         if (value) {
-          this.goToPage(this.page - 1);
+          this.goToPage(this.employeeSearchCriteria.number - 1);
         }
       }
     })
@@ -61,22 +61,26 @@ export class EmployeePageComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (value) => {
         if (value) {
-          this.goToPage(this.page - 1);
+          this.goToPage(this.employeeSearchCriteria.number - 1);
         }
       }
     })
   }
 
-  goToPage(page: number) {
-    this.employeeService.getEmployeePage(page, this.pageSize).subscribe(response => {
+  goToPage(pageNumber: number) {
+    this.employeeSearchCriteria.number = pageNumber
+    this.search(this.employeeSearchCriteria);
+  }
+
+  search(employeeSearchCriteria: EmployeeSearchCriteria) {
+    this.employeeService.getEmployeePage(employeeSearchCriteria).subscribe(response => {
       this.employeePage = response;
-      this.collectionSize = response.totalElements;
     });
   }
 
-  changePageSize(number: number) {
-    this.pageSize = number;
-    this.page = 0;
+  changePageSize(size: number) {
+    this.employeeSearchCriteria.size = size;
+    this.goToPage(0);
   }
 
   export(type: string) {
@@ -94,7 +98,7 @@ export class EmployeePageComponent implements OnInit {
         });
       },
       error => {
-        this.toastr.error('Error: ' + error.message, 'Error', {
+        this.toastr.error(error.error, 'Error', {
           timeOut: 2000,
         });
       });
@@ -112,9 +116,10 @@ export class EmployeePageComponent implements OnInit {
             this.toastr.success('File imported successfully', 'Success', {
               timeOut: 2000,
             });
+            this.goToPage(0);
           },
           error: (err: any) => {
-            this.toastr.success(err.body.message(), 'Error', {
+            this.toastr.error(err.error, 'Error', {
               timeOut: 2000,
             });
 
@@ -129,5 +134,34 @@ export class EmployeePageComponent implements OnInit {
   selectFile(event: any) {
     this.selectedFiles = event.target.files;
     this.import();
+  }
+
+  updateFirstNameLike($event: string) {
+    this.employeeSearchCriteria.firstNameLike = $event
+    this.employeeSearchCriteria.number = 0;
+  }
+
+  updateLastNameLike($event: string) {
+    this.employeeSearchCriteria.lastNameLike = $event
+  }
+
+  updateEmailNameLike($event: string) {
+    this.employeeSearchCriteria.emailLike = $event
+  }
+
+  updateSalaryGreaterEqual($event: number) {
+    this.employeeSearchCriteria.salaryGreaterEqual = $event
+  }
+
+  updateSalaryLessEqual($event: number) {
+    this.employeeSearchCriteria.salaryLessEqual = $event
+  }
+
+  updateSortingBy($event: string) {
+    this.employeeSearchCriteria.sortBy = $event
+  }
+
+  updateOrdering($event: string) {
+    this.employeeSearchCriteria.direction = $event
   }
 }

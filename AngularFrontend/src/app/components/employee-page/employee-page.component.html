@@ -1,74 +1,85 @@
 <div class="page">
   <div class="container">
-    <button type="button" class="btn btn-primary btn-new" (click)="openNewEmployeeDialog()">New Employee</button>
-    <button type="button" class="btn btn-danger" (click)="export('csv')">To csv</button>
-    <button type="button" class="btn btn-success" (click)="uploader.click()">From csv</button>
 
-    <input
-      hidden
-      #uploader
-      type="file"
-      id="fileInput"
-      (change)="selectFile($event)"
-      name="From csv"
-    />
-    <table class="table table-striped table-dark">
-      <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">First Name</th>
-        <th scope="col">Last Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Salary</th>
-        <th scope="col">Options</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let employee of employeePage.content">
-        <td>{{employee.id}}</td>
-        <td>{{employee.firstName}}</td>
-        <td>{{employee.lastName}}</td>
-        <td>{{employee.email}}</td>
-        <td>{{employee.salary}}</td>
-        <td>
-          <button type="button" class="btn btn-success btn-edit" (click)="openEditEmployeeDialog(employee)">Edit
-          </button>
-          <button type="button" class="btn btn-danger btn-delete" (click)="openDeleteEmployeeDialog(employee)">Delete
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="left-sidebar">
+      <app-filtering (firstNameLike)="updateFirstNameLike($event)" (lastNameLike)="updateLastNameLike($event)"
+                     (emailLike)="updateEmailNameLike($event)"
+                     (salaryGreaterEqual)="updateSalaryGreaterEqual($event)"
+                     (salaryLessEqual)="updateSalaryLessEqual($event)"
+                     (sortBy)="updateSortingBy($event)" (ordering)="updateOrdering($event)"></app-filtering>
+    </div>
+    <div class="right-sidebar">
+      <button type="button" class="btn btn-primary btn-new" (click)="openNewEmployeeDialog()">New Employee</button>
+      <button type="button" class="btn btn-danger" (click)="export('csv')">To csv</button>
+      <button type="button" class="btn btn-success" (click)="uploader.click()">From csv</button>
 
-    <div class="pagination-navbar col-md-9">
-      <nav aria-label="=pagination-navbar">
-        <div class="pagination">
-          <ngb-pagination
-            [collectionSize]="employeePage.totalElements"
-            (pageChange)="goToPage($event-1)"
-            [(page)]="page"
-            [maxSize]="3"
-            [rotate]="true"
-            [boundaryLinks]="true"
-            [pageSize]="pageSize"
-          ></ngb-pagination>
-          <div class="elements-on-page">
-            <div class="dropdown">
-              <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                On page: {{pageSize}}
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" (click)="changePageSize(10)">10</a></li>
-                <li><a class="dropdown-item" (click)="changePageSize(15)">15</a></li>
-                <li><a class="dropdown-item" (click)="changePageSize(25)">25</a></li>
-                <li><a class="dropdown-item" (click)="changePageSize(50)">50</a></li>
-                <li><a class="dropdown-item" (click)="changePageSize(100)">100</a></li>
-              </ul>
+      <input
+        hidden
+        #uploader
+        type="file"
+        id="fileInput"
+        (change)="selectFile($event)"
+        name="From csv"
+      />
+      <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Salary</th>
+          <th scope="col">Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let employee of employeePage.content">
+          <td>{{employee.id}}</td>
+          <td>{{employee.firstName}}</td>
+          <td>{{employee.lastName}}</td>
+          <td>{{employee.email}}</td>
+          <td>{{employee.salary}}</td>
+          <td>
+            <button type="button" class="btn btn-success btn-edit" (click)="openEditEmployeeDialog(employee)">Edit
+            </button>
+            <button type="button" class="btn btn-danger btn-delete" (click)="openDeleteEmployeeDialog(employee)">Delete
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination-navbar col-md-9">
+        <nav aria-label="=pagination-navbar">
+          <div class="pagination">
+            <ngb-pagination
+              [collectionSize]="employeePage.totalElements"
+              (pageChange)="goToPage($event-1)"
+              [(page)]="employeeSearchCriteria.number"
+              [maxSize]="3"
+              [rotate]="true"
+              [boundaryLinks]="true"
+              [pageSize]="employeeSearchCriteria.size"
+            ></ngb-pagination>
+            <div class="elements-on-page">
+              <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                  On page: {{employeeSearchCriteria.size}}
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" (click)="changePageSize(10)">10</a></li>
+                  <li><a class="dropdown-item" (click)="changePageSize(15)">15</a></li>
+                  <li><a class="dropdown-item" (click)="changePageSize(25)">25</a></li>
+                  <li><a class="dropdown-item" (click)="changePageSize(50)">50</a></li>
+                  <li><a class="dropdown-item" (click)="changePageSize(100)">100</a></li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </div>
+
   </div>
 </div>
