@@ -1,29 +1,33 @@
 package com.example.springbackend.service;
 
+import com.example.springbackend.controller.request.EmployeeSearchCriteria;
+import com.example.springbackend.exception.EmployeeNotFoundException;
 import com.example.springbackend.model.Employee;
 import com.example.springbackend.readingwriting.CsvService;
+import com.example.springbackend.repository.EmployeeCriteriaRepository;
 import com.example.springbackend.repository.EmployeeRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final EmployeeCriteriaRepository employeeCriteriaRepository;
     private final CsvService csvService;
 
-    public EmployeeService(EmployeeRepository employeeRepository, CsvService csvService) {
+    public EmployeeService(EmployeeRepository employeeRepository, EmployeeCriteriaRepository employeeCriteriaRepository,
+                           CsvService csvService) {
         this.employeeRepository = employeeRepository;
+        this.employeeCriteriaRepository = employeeCriteriaRepository;
         this.csvService = csvService;
     }
 
-    public Page<Employee> getEmployees(int page, int pageSize, String sortBy, Sort.Direction direction) {
-        return employeeRepository.findAll(PageRequest.of(page, pageSize, Sort.by(direction, sortBy)));
+    public Page<Employee> getEmployees(EmployeeSearchCriteria employeeSearchCriteria) {
+        return employeeCriteriaRepository.getEmployeePageWithCriteria(employeeSearchCriteria);
     }
 
     public Employee getEmployeeById(Long id) {
@@ -32,7 +36,7 @@ public class EmployeeService {
 
     private Employee findEmployeeById(Long id) {
         return employeeRepository.findById(id).orElseThrow(
-                () -> new NoSuchElementException("There is no employee with id: " + id));
+                () -> new EmployeeNotFoundException(id));
     }
 
     public Employee addEmployee(Employee employee) {
@@ -40,7 +44,7 @@ public class EmployeeService {
     }
 
     public Employee updateEmployeeById(Long id, Employee employee) {
-        Employee toUpdate = getEmployeeById(id);
+        Employee toUpdate = findEmployeeById(id);
         if (employee.getFirstName() != null) {
             toUpdate.setFirstName(employee.getFirstName());
         }
@@ -57,16 +61,22 @@ public class EmployeeService {
     }
 
     public void deleteEmployeeById(Long id) {
-        employeeRepository.deleteById(id);
+        Employee toDelete = findEmployeeById(id);
+        employeeRepository.delete(toDelete);
     }
 
 
     public byte[] exportEmployees(String type) {
         List<Employee> employees = employeeRepository.findAll();
-        if (type.equals("csv")) {
-            return csvService.exportEmployeesToCsv(employees);
-        }
-        throw new IllegalArgumentException("Illegal export type: " + type);
+        return csvService.exportEmployeesToCsv(employees);
     }
 
+    public void importEmployees(MultipartFile file) {
+        List<Employee> employees = csvService.importEmployees(file);
+        saveAllEmployees(employees);
+    }
+
+    private void saveAllEmployees(List<Employee> employees) {
+        employeeRepository.saveAll(employees);
+    }
 }
