@@ -1,22 +1,39 @@
 
-.page{
+.body {
+  background-color: #bebdbd;
+}
+
+.page {
   margin-top: 30px;
 }
 
-.container{
-  background-color: #6c6c6c;
-  padding: 10px;
+.container {
+  background-color: #929292;
+  width: 80%;
 }
 
-.btn-new{
+.btn-new {
   float: right;
   margin-bottom: 10px;
 }
 
-.btn-delete{
+.btn-delete {
   margin-left: 10px;
 }
 
-.dropdown-toggle{
+.dropdown-toggle {
   height: 34px;
+}
+
+.left-sidebar {
+  display: inline-block;
+  width: 20%;
+  vertical-align: top;
+  padding: 10px;
+}
+
+.right-sidebar {
+  display: inline-block;
+  width: 80%;
+  padding: 10px;
 }

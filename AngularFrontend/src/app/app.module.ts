@@ -4,7 +4,6 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { EmployeePageComponent } from './components/employee-page/employee-page.component';
-import { EmployeeComponent } from './components/employee/employee.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { DeleteEmployeeComponent } from './components/delete-employee/delete-employee.component';
@@ -17,15 +16,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatButtonModule} from "@angular/material/button";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { FilteringComponent } from './components/filtering/filtering.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeePageComponent,
-    EmployeeComponent,
     AddEmployeeComponent,
     EditEmployeeComponent,
-    DeleteEmployeeComponent
+    DeleteEmployeeComponent,
+    FilteringComponent
   ],
     imports: [
         BrowserModule,
@@ -39,6 +41,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         MatButtonModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot(),
+        MatSelectModule,
+        MatRadioModule,
     ],
   providers: [],
   bootstrap: [AppComponent]
