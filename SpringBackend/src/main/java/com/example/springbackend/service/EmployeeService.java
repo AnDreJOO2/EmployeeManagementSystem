@@ -33,7 +33,7 @@ public class EmployeeService {
 
     private Employee findEmployeeById(Long id) {
         return employeeRepository.findById(id).orElseThrow(
-                () -> new NoSuchElementException("There is no employee with id: " + id));
+                () -> new EmployeeNotFoundException(id));
     }
 
     public Employee addEmployee(Employee employee) {
@@ -41,7 +41,7 @@ public class EmployeeService {
     }
 
     public Employee updateEmployeeById(Long id, Employee employee) {
-        Employee toUpdate = getEmployeeById(id);
+        Employee toUpdate = findEmployeeById(id);
         if (employee.getFirstName() != null) {
             toUpdate.setFirstName(employee.getFirstName());
         }
@@ -58,16 +58,14 @@ public class EmployeeService {
     }
 
     public void deleteEmployeeById(Long id) {
-        employeeRepository.deleteById(id);
+        Employee toDelete = findEmployeeById(id);
+        employeeRepository.delete(toDelete);
     }
 
 
     public byte[] exportEmployees(String type) {
         List<Employee> employees = employeeRepository.findAll();
-        if (type.equals("csv")) {
-            return csvService.exportEmployeesToCsv(employees);
-        }
-        throw new IllegalArgumentException("Illegal export type: " + type);
+        return csvService.exportEmployeesToCsv(employees);
     }
 
     public void importEmployees(MultipartFile file) {

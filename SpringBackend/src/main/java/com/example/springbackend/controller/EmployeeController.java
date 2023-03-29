@@ -1,5 +1,9 @@
 package com.example.springbackend.controller;
 
+import com.example.springbackend.controller.request.EmployeeSearchCriteria;
+import com.example.springbackend.exception.IllegalExportTypeException;
+import com.example.springbackend.exception.IllegalFileExtensionException;
+import com.example.springbackend.exception.ImportNullFileException;
 import com.example.springbackend.model.Employee;
 import com.example.springbackend.service.EmployeeService;
 import org.springframework.data.domain.Page;
@@ -37,6 +41,9 @@ public class EmployeeController {
     @GetMapping("export")
     public ResponseEntity<byte[]> exportEmployees(@RequestParam(required = false, defaultValue = "csv") String type) {
         type = type.toLowerCase();
+        if (!type.equals("csv")) {
+            throw new IllegalExportTypeException(type);
+        }
         String fileName = "employees." + type;
 
         byte[] file = employeeService.exportEmployees(type);
@@ -48,10 +55,13 @@ public class EmployeeController {
 
     @PostMapping("import")
     public ResponseEntity<?> importEmployees(@RequestParam MultipartFile file) {
-        System.out.println(file.getOriginalFilename());
-        if (file.getOriginalFilename().endsWith(".csv")) {
-            employeeService.importEmployees(file);
+        if (Objects.isNull(file)) {
+            throw new ImportNullFileException();
         }
+        if (!file.getOriginalFilename().endsWith(".csv")) {
+            throw new IllegalFileExtensionException(file.getOriginalFilename());
+        }
+        employeeService.importEmployees(file);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

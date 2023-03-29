@@ -1,5 +1,7 @@
 package com.example.springbackend.readingwriting;
 
+import com.example.springbackend.exception.ExportEmployeeToCsvException;
+import com.example.springbackend.exception.ImportEmployeeToCsvException;
 import com.example.springbackend.model.Employee;
 import org.apache.commons.csv.*;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,7 @@ public class CsvService {
 
             return output.toByteArray();
         } catch (IOException ex) {
-            throw new RuntimeException(ex.getMessage());
+            throw new ExportEmployeeToCsvException();
         }
     }
 
@@ -84,7 +86,7 @@ public class CsvService {
             return employees;
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ImportEmployeeToCsvException();
         }
     }
 }
