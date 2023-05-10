@@ -21,6 +21,7 @@ Single page Frontend-Backend application to manage your entity, based on employe
 4. Allows to download entity data to .csv file.
 5. Dialogs.
 6. Alerts.
+7. Caffeine Cache
 
 # Technologies <a name="Technologies"></a>
 
@@ -30,6 +31,7 @@ Single page Frontend-Backend application to manage your entity, based on employe
 - Maven
 - H2
 - Commons-csv
+- Caffeine Cache
 
 ## Frontend
 
