@@ -34,8 +34,4 @@ public class GeneralControllerAdvice {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ImportNullFileException.class)
-    public ResponseEntity<String> importNullFileExceptionHandler(ImportNullFileException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
 }
