@@ -73,12 +73,15 @@ public class EmployeeCriteriaRepository {
     private Predicate getPredicate(Root<Employee> root, EmployeeSearchCriteria employeeSearchCriteria) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if (Objects.nonNull(employeeSearchCriteria.getFirstNameLike())) {
+        if (Objects.nonNull(employeeSearchCriteria.getFirstNameOrLastNameOrEmailLike())) {
             predicates.add(
                     criteriaBuilder.or(
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("firstName")), "%" + employeeSearchCriteria.getFirstNameLike().toLowerCase() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("lastName")), "%" + employeeSearchCriteria.getLastNameLike().toLowerCase() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("email")), "%" + employeeSearchCriteria.getEmailLike().toLowerCase() + "%")
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("firstName")), "%" + employeeSearchCriteria.getFirstNameOrLastNameOrEmailLike().toLowerCase() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("lastName")), "%" + employeeSearchCriteria.getFirstNameOrLastNameOrEmailLike().toLowerCase() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("email")), "%" + employeeSearchCriteria.getFirstNameOrLastNameOrEmailLike().toLowerCase() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(criteriaBuilder.concat(
+                                    criteriaBuilder.concat(root.get("firstName"), " "), root.get("lastName")
+                            )), "%" + employeeSearchCriteria.getFirstNameOrLastNameOrEmailLike().toLowerCase() + "%")
                     ));
         }
 

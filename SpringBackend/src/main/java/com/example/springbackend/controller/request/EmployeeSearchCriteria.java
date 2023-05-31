@@ -9,9 +9,8 @@ public class EmployeeSearchCriteria {
 
     private String sortBy = "id";
     private Sort.Direction direction = Sort.Direction.ASC;
-    private String firstNameLike;
-    private String lastNameLike;
-    private String emailLike;
+    private String firstNameOrLastNameOrEmailLike;
+
     private Double salaryGreaterEqual;
     private Double salaryLessEqual;
 
@@ -47,28 +46,12 @@ public class EmployeeSearchCriteria {
         this.direction = direction;
     }
 
-    public String getFirstNameLike() {
-        return firstNameLike;
+    public String getFirstNameOrLastNameOrEmailLike() {
+        return firstNameOrLastNameOrEmailLike;
     }
 
-    public void setFirstNameLike(String firstNameLike) {
-        this.firstNameLike = firstNameLike;
-    }
-
-    public String getLastNameLike() {
-        return lastNameLike;
-    }
-
-    public void setLastNameLike(String lastNameLike) {
-        this.lastNameLike = lastNameLike;
-    }
-
-    public String getEmailLike() {
-        return emailLike;
-    }
-
-    public void setEmailLike(String emailLike) {
-        this.emailLike = emailLike;
+    public void setFirstNameOrLastNameOrEmailLike(String firstNameOrLastNameOrEmailLike) {
+        this.firstNameOrLastNameOrEmailLike = firstNameOrLastNameOrEmailLike;
     }
 
     public Double getSalaryGreaterEqual() {

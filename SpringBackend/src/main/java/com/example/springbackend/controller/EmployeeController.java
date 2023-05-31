@@ -34,15 +34,13 @@ public class EmployeeController {
             @RequestParam(required = false, name = "size") Integer size,
             @RequestParam(required = false, name = "sortBy") String sortBy,
             @RequestParam(required = false, name = "direction") String direction,
-            @RequestParam(required = false, name = "firstNameLike") String firstNameLike,
-            @RequestParam(required = false, name = "lastNameLike") String lastNameLike,
-            @RequestParam(required = false, name = "emailLike") String emailLike,
+            @RequestParam(required = false, name = "firstNameOrLastNameOrEmailLike") String firstNameOrLastNameOrEmailLike,
             @RequestParam(required = false, name = "salaryGreaterEqual") Double salaryGreaterEqual,
             @RequestParam(required = false, name = "salaryLessEqual") Double salaryLessEqual) {
 
         EmployeeSearchCriteria employeeSearchCriteria = new EmployeeSearchCriteria();
-        buildEmployeeSearchCriteria(employeeSearchCriteria, number, size, sortBy, direction, firstNameLike, lastNameLike,
-                emailLike, salaryGreaterEqual, salaryLessEqual);
+        buildEmployeeSearchCriteria(employeeSearchCriteria, number, size, sortBy, direction, firstNameOrLastNameOrEmailLike,
+                salaryGreaterEqual, salaryLessEqual);
         return new ResponseEntity<>(employeeService.getEmployees(employeeSearchCriteria), HttpStatus.OK);
     }
 
@@ -95,7 +93,7 @@ public class EmployeeController {
     }
 
     private void buildEmployeeSearchCriteria(EmployeeSearchCriteria employeeSearchCriteria, Integer number, Integer size, String sortBy, String direction,
-                                             String firstNameLike, String lastNameLike, String emailLike, Double salaryGreaterEqual, Double salaryLessEqual) {
+                                             String firstNameOrLastNameOrEmailLike, Double salaryGreaterEqual, Double salaryLessEqual) {
         if (Objects.nonNull(number)) {
             employeeSearchCriteria.setNumber(number);
         }
@@ -112,14 +110,8 @@ public class EmployeeController {
                 employeeSearchCriteria.setDirection(Sort.Direction.DESC);
             }
         }
-        if (Objects.nonNull(firstNameLike)) {
-            employeeSearchCriteria.setFirstNameLike(firstNameLike);
-        }
-        if (Objects.nonNull(lastNameLike)) {
-            employeeSearchCriteria.setLastNameLike(lastNameLike);
-        }
-        if (Objects.nonNull(emailLike)) {
-            employeeSearchCriteria.setEmailLike(emailLike);
+        if (Objects.nonNull(firstNameOrLastNameOrEmailLike)) {
+            employeeSearchCriteria.setFirstNameOrLastNameOrEmailLike(firstNameOrLastNameOrEmailLike);
         }
         if (Objects.nonNull(salaryGreaterEqual)) {
             employeeSearchCriteria.setSalaryGreaterEqual(salaryGreaterEqual);
