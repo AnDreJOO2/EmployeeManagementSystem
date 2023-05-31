@@ -69,4 +69,17 @@ public class EmployeeSearchCriteria {
     public void setSalaryLessEqual(Double salaryLessEqual) {
         this.salaryLessEqual = salaryLessEqual;
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeSearchCriteria{" +
+                "number=" + number +
+                ", size=" + size +
+                ", sortBy='" + sortBy + '\'' +
+                ", direction=" + direction +
+                ", firstNameOrLastNameOrEmailLike='" + firstNameOrLastNameOrEmailLike + '\'' +
+                ", salaryGreaterEqual=" + salaryGreaterEqual +
+                ", salaryLessEqual=" + salaryLessEqual +
+                '}';
+    }
 }
