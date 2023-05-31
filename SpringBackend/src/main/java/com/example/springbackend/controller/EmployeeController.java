@@ -3,7 +3,6 @@ package com.example.springbackend.controller;
 import com.example.springbackend.controller.request.EmployeeSearchCriteria;
 import com.example.springbackend.exception.IllegalExportTypeException;
 import com.example.springbackend.exception.IllegalFileExtensionException;
-import com.example.springbackend.exception.ImportNullFileException;
 import com.example.springbackend.model.Employee;
 import com.example.springbackend.service.EmployeeService;
 import org.springframework.data.domain.Page;
@@ -61,9 +60,6 @@ public class EmployeeController {
 
     @PostMapping("import")
     public ResponseEntity<?> importEmployees(@RequestParam MultipartFile file) {
-        if (Objects.isNull(file)) {
-            throw new ImportNullFileException();
-        }
         if (!file.getOriginalFilename().endsWith(".csv")) {
             throw new IllegalFileExtensionException(file.getOriginalFilename());
         }
