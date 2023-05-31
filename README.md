@@ -32,6 +32,8 @@ Single page Frontend-Backend application to manage your entity, based on employe
 - H2
 - Commons-csv
 - Caffeine Cache
+- AssertJ
+- Mockito
 
 ## Frontend
 
@@ -89,6 +91,14 @@ Example of editing entity.
 
 Example of deleting entity.
 ![ Alt text](readme-elements/delete-employee.gif)
+
+
+# Tests
+
+Project has been tested with unit test.
+You can see below on the coverage of these tests.
+
+![ Alt text](readme-elements/tests.png)
 
 # Summary <a name="Summary"></a>
 
