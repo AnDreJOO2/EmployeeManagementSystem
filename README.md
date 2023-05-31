@@ -96,7 +96,7 @@ Example of deleting entity.
 # Tests
 
 Project has been tested with unit test.
-You can see below on the coverage of these tests.
+You can see below the coverage of these tests.
 
 ![ Alt text](readme-elements/tests.png)
 
