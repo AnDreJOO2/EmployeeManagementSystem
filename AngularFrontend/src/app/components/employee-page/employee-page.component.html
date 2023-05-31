@@ -2,8 +2,7 @@
   <div class="container">
 
     <div class="left-sidebar">
-      <app-filtering (firstNameLike)="updateFirstNameLike($event)" (lastNameLike)="updateLastNameLike($event)"
-                     (emailLike)="updateEmailNameLike($event)"
+      <app-filtering (firstNameOrLastNameOrEmailLike)="updateFirstNameOrLastNameOrEmailLike($event)"
                      (salaryGreaterEqual)="updateSalaryGreaterEqual($event)"
                      (salaryLessEqual)="updateSalaryLessEqual($event)"
                      (sortBy)="updateSortingBy($event)" (ordering)="updateOrdering($event)"></app-filtering>

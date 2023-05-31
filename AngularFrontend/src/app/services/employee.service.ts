@@ -22,28 +22,19 @@ export class EmployeeService {
     queryParams = queryParams.append("sortBy", employeeSearchCriteria.sortBy);
     queryParams = queryParams.append("direction", employeeSearchCriteria.direction);
 
-
-    if(employeeSearchCriteria.firstNameLike != null){
-      queryParams = queryParams.append("firstNameLike", employeeSearchCriteria.firstNameLike);
+    if (employeeSearchCriteria.getFirstNameOrLastNameOrEmailLike != null) {
+      queryParams = queryParams.append("firstNameOrLastNameOrEmailLike", employeeSearchCriteria.getFirstNameOrLastNameOrEmailLike);
     }
 
-    if(employeeSearchCriteria.lastNameLike != null){
-      queryParams = queryParams.append("lastNameLike", employeeSearchCriteria.lastNameLike);
-    }
-
-    if(employeeSearchCriteria.emailLike != null){
-      queryParams = queryParams.append("emailLike", employeeSearchCriteria.emailLike);
-    }
-
-    if(employeeSearchCriteria.salaryGreaterEqual != null){
+    if (employeeSearchCriteria.salaryGreaterEqual != null) {
       queryParams = queryParams.append("salaryGreaterEqual", employeeSearchCriteria.salaryGreaterEqual);
     }
 
-    if(employeeSearchCriteria.salaryLessEqual != null){
+    if (employeeSearchCriteria.salaryLessEqual != null) {
       queryParams = queryParams.append("salaryLessEqual", employeeSearchCriteria.salaryLessEqual);
     }
 
-    return this.httpClient.get<EmployeePage>(this.employeeUrl, {params:queryParams});
+    return this.httpClient.get<EmployeePage>(this.employeeUrl, {params: queryParams});
   }
 
   addEmployee(newEmployee: NewEmployee): Observable<any> {

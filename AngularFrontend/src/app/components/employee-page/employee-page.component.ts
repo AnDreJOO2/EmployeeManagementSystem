@@ -136,17 +136,9 @@ export class EmployeePageComponent implements OnInit {
     this.import();
   }
 
-  updateFirstNameLike($event: string) {
-    this.employeeSearchCriteria.firstNameLike = $event
+  updateFirstNameOrLastNameOrEmailLike($event: string) {
+    this.employeeSearchCriteria.getFirstNameOrLastNameOrEmailLike = $event
     this.employeeSearchCriteria.number = 0;
-  }
-
-  updateLastNameLike($event: string) {
-    this.employeeSearchCriteria.lastNameLike = $event
-  }
-
-  updateEmailNameLike($event: string) {
-    this.employeeSearchCriteria.emailLike = $event
   }
 
   updateSalaryGreaterEqual($event: number) {

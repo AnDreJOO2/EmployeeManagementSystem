@@ -4,9 +4,7 @@ export class EmployeeSearchCriteria {
   size: number = 15;
   sortBy: string = "id";
   direction: string = "ASC";
-  firstNameLike?: string;
-  lastNameLike?: string;
-  emailLike?: string;
+  getFirstNameOrLastNameOrEmailLike?: string;
   salaryGreaterEqual?: number;
   salaryLessEqual?: number;
 }

@@ -13,9 +13,7 @@ interface OrderingInterface {
 })
 export class FilteringComponent {
 
-  @Output() firstNameLike = new EventEmitter<string>();
-  @Output() lastNameLike = new EventEmitter<string>();
-  @Output() emailLike = new EventEmitter<string>();
+  @Output() firstNameOrLastNameOrEmailLike = new EventEmitter<string>();
   @Output() salaryGreaterEqual = new EventEmitter<number>();
   @Output() salaryLessEqual = new EventEmitter<number>();
 
@@ -41,16 +39,8 @@ export class FilteringComponent {
     {name: 'Salary', value: 'salary'},
   ]
 
-  setFirstNameLike(value: string | undefined) {
-    this.firstNameLike.emit(value);
-  }
-
-  setLastNameLike(value: string | undefined) {
-    this.lastNameLike.emit(value);
-  }
-
-  setEmailLike(value: string | undefined) {
-    this.emailLike.emit(value);
+  setFirstNameOrLastNameOrEmailLike(value: string | undefined) {
+    this.firstNameOrLastNameOrEmailLike.emit(value);
   }
 
   setSalaryGreaterEqual(value: number | undefined) {
@@ -70,16 +60,14 @@ export class FilteringComponent {
   }
 
   submit(form: NgForm) {
-    let firstNameLastNameEmailLike = form.form.value.firstNameLastNameEmail;
+    let firstNameLastNameEmailLike = form.form.value.firstNameOrLastNameOrEmailLike;
     let salaryGreaterEqual = form.form.value.salaryGreaterEqual;
     let salaryLessEqual = form.form.value.salaryLessEqual;
 
     let sortBy = form.form.value.sortBy;
     let ordering = form.form.value.ordering;
 
-    this.setFirstNameLike(firstNameLastNameEmailLike);
-    this.setLastNameLike(firstNameLastNameEmailLike);
-    this.setEmailLike(firstNameLastNameEmailLike);
+    this.setFirstNameOrLastNameOrEmailLike(firstNameLastNameEmailLike);
     this.setSalaryGreaterEqual(salaryGreaterEqual);
     this.setSalaryLessEqual(salaryLessEqual);
 
