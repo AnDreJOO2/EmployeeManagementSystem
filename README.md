@@ -11,7 +11,8 @@ Single page Frontend-Backend application to manage your entity, based on employe
 3. [Technologies](#technologies)
 4. [How to run](#how-to-run)
 5. [Usage Example](#usage-Example)
-5. [Summary](#summary)
+6. [Tests](#tests)
+7. [Summary](#summary)
 
 # Functionalities <a name="Functionalities"></a>
 
@@ -93,7 +94,7 @@ Example of deleting entity.
 ![ Alt text](readme-elements/delete-employee.gif)
 
 
-# Tests
+# Tests <a name="Tests"></a>
 
 Project has been tested with unit test.
 You can see below the coverage of these tests.
